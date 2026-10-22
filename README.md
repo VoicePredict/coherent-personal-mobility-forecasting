@@ -161,7 +161,7 @@ separate dataset terms and is not supplied by this repository.
 ## Versioned Artifact
 
 The results reported in the article correspond to
-[version v1.0](https://github.com/VoicePredict/coherent-personal-mobility-forecasting/tree/v1.0).
+[version v1.0.1](https://github.com/VoicePredict/coherent-personal-mobility-forecasting/tree/v1.0.1).
 Use this tag for publication reproduction; the default branch may receive
 subsequent documentation or validation maintenance.
 
