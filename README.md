@@ -51,6 +51,18 @@ python3.10 -m venv .venv
 .venv/bin/pip install -r requirements.lock.txt
 ```
 
+## Tests
+
+Run the unit and validation-regression tests from the repository root:
+
+```bash
+.venv/bin/python -m unittest discover -s tests -v
+```
+
+The tests cover the frozen article configuration, candidate-admissibility
+rules, GeoLife archive identity, top-15 fallback order, complete
+case--arm--method matrices, and rejection of non-finite geometry diagnostics.
+
 ## Download and Prepare GeoLife
 
 Automatic download, verification, extraction, and preparation:
@@ -111,6 +123,20 @@ results/reference/ tracked coordinate-free article results
 
 Do not publish or commit `data/private/` or `outputs/private/`.
 
+## Computational Requirements
+
+The reported runs used Python 3.10.12 on Linux with an Intel Core i5-8259U
+processor (4 physical cores, 8 hardware threads) and 16 GiB of RAM. No GPU is
+required. The computationally intensive stages were effectively
+single-threaded.
+
+On that system, the stages in `run_full_pipeline.sh` required approximately
+50 min in total when starting from an already extracted GeoLife release; data
+download, archive extraction, and environment installation are not included.
+The measured peak resident memory for the epsilon-500 forecasting and final
+selection stages was approximately 8.5 GiB. Runtime depends on processor and
+storage performance; at least 12 GiB of available RAM is recommended.
+
 ## Principal Reference Results
 
 Under the primary 1-km route-start tolerance:
@@ -145,3 +171,17 @@ results/reference/           Coordinate-free article aggregates
 The GTA-V file is project data and is retained so that the descriptive
 two-history slice can be reproduced. GeoLife remains subject to Microsoft's
 separate dataset terms and is not supplied by this repository.
+
+## Versioned Artifact
+
+The results reported in the article correspond to
+[version v1.0](https://github.com/VoicePredict/coherent-personal-mobility-forecasting/tree/v1.0).
+Use this tag for publication reproduction; the default branch may receive
+subsequent documentation or validation maintenance.
+
+## License
+
+Original code, documentation, and the project-generated GTA-V input are
+distributed under the [MIT License](LICENSE). GeoLife and third-party
+dependencies remain subject to their respective upstream terms; see
+[DATA_NOTICE.md](DATA_NOTICE.md).

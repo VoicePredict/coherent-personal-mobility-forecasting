@@ -19,15 +19,26 @@ downloads only from Microsoft's official file host after `--accept-license`
 has been supplied, or accepts a manually downloaded archive. All source and
 coordinate-bearing derived files are written to Git-ignored directories.
 
+GeoLife and files derived from it remain subject to Microsoft's terms. They
+are not covered by this repository's MIT License.
+
 ## GTA-V
 
 `data/raw/trips_lines_GTA.csv.gz` contains project-generated virtual-city
 trajectories used for the descriptive GTA-V slice. It is not derived from
 GeoLife. Its SHA-256 is
 `7eaf8e923bb91d18b5dd6d7680cb46b850f316006fca56757565f4572ef04c3e`.
+This project-generated input is distributed under the repository's MIT
+License.
 
 ## Tracked Results
 
 `results/reference/` contains coordinate-free aggregate tables only. It does
 not contain user trajectories, route geometries, prepared coordinate tables,
 or case-level predictions.
+
+## Code and Documentation
+
+Original code and documentation in this repository are distributed under the
+MIT License in [`LICENSE`](LICENSE). Third-party software dependencies retain
+their respective upstream licences.
