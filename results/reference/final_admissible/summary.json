@@ -1,0 +1,25 @@
+{
+  "status": "completed",
+  "n_cases": 8526,
+  "n_rows": 153468,
+  "arms": [
+    "combined_1000m",
+    "combined_500m",
+    "combined_350m"
+  ],
+  "policies": [
+    "coherent_abstain",
+    "coherent_product",
+    "destination_only",
+    "most_frequent_destination",
+    "route_analogue",
+    "transition_grid_route"
+  ],
+  "admissibility": {
+    "max_endpoint_discrepancy_m": 500,
+    "primary_max_start_gap_m": 1000,
+    "grid_destination_cell_must_be_reached": true
+  },
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 20261020
+}

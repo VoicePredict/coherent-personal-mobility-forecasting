@@ -1,0 +1,20 @@
+{
+  "status": "completed",
+  "n_cases": 8526,
+  "analogue_budget": 15,
+  "arms": [
+    "combined_1000m",
+    "combined_500m",
+    "combined_350m"
+  ],
+  "policies": [
+    "coherent_product",
+    "coherent_abstain",
+    "route_analogue_a1_guarded",
+    "route_analogue_top15_guarded"
+  ],
+  "primary_contrast": "coherent_product minus route_analogue_top15_guarded under combined_1000m",
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 20261020,
+  "selection_uses_test_outcomes": false
+}

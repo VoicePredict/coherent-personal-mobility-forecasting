@@ -1,0 +1,4 @@
+arm,n_cases,a1_emitted_n,top15_emitted_n,rescued_after_inadmissible_a1_n,top15_abstained_n,selected_lower_rank_n,ead_improved_n,ead_worsened_n,ead_unchanged_n,destination_1km_improved_n,destination_1km_worsened_n,destination_1km_unchanged_n,short_horizon_1km_improved_n,short_horizon_1km_worsened_n,short_horizon_1km_unchanged_n,route_score_improved_n,route_score_worsened_n,route_score_unchanged_n
+combined_1000m,8526,6617,6926,309,1600,309,74,0,8452,81,0,8445,111,0,8415,147,0,8379
+combined_500m,8526,5836,6291,455,2235,455,165,0,8361,183,0,8343,233,0,8293,355,0,8171
+combined_350m,8526,5321,5894,573,2632,573,258,0,8268,283,0,8243,336,0,8190,573,0,7953
