@@ -35,10 +35,10 @@ trajectories are retained. The mode attached to each point is obtained from
 the supplied interval labels. A trip's descriptive modal label is its most
 frequent known point label, or `unknown` if no known label is present.
 
-The final source preparation yields 103 eligible users and 16,764 retained
+The source-preparation procedure yields 103 eligible users and 16,764 retained
 GeoLife trips. The two split protocols produce 8,466 GeoLife evaluation cases.
 
-Local paths created by the script:
+Generated paths, relative to the repository root:
 
 ```text
 data/private/Geolife Trajectories 1.3.zip

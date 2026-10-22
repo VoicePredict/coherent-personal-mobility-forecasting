@@ -7,9 +7,9 @@ article and by `scripts/validate_public_results.py`.
   points, risk--coverage tables, support strata, start-gap sensitivity,
   development-user exclusion, temporal sensitivity, and paired bootstrap
   intervals.
-- `reference/top15_baseline/` contains the strengthened route-retrieval
-  baseline, selected-rank counts, comparisons with the single-analogue
-  diagnostic, and paired bootstrap intervals.
+- `reference/top15_baseline/` contains the admissibility-matched top-15
+  route-retrieval baseline, selected-rank counts, comparisons with the
+  single-analogue diagnostic, and paired bootstrap intervals.
 
 No tracked file contains latitude, longitude, projected coordinates, route
 geometry, or per-case GeoLife predictions. Fresh coordinate-bearing results

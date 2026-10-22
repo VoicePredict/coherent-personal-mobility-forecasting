@@ -8,18 +8,18 @@
 - `prepare_geolife.py`: one-PLT-one-trip conversion, complete-trip mode
   filtering, and source-quality audit.
 - `validate_geolife_preparation.py`: preparation invariants and checksums.
-- `data_preparation.py`: final normalization of the prepared GeoLife and GTA-V
-  inputs for the forecasting code.
+- `data_preparation.py`: normalization of the prepared GeoLife and GTA-V inputs
+  for the forecasting code.
 
-## Forecasting and final selection
+## Forecasting and selection
 
-- `forecasting.py`: frozen train-only destination regions, route analogue
+- `forecasting.py`: train-only destination regions, route analogue
   retrieval, grid transitions, candidate scoring, and evaluation.
 - `run_forecasting.py`: the two-split 8,526-case base run.
 - `geometry_guard.py`: route-start, endpoint, and grid-reachability checks.
-- `run_final_admissible.py`: final candidate filtering and coherent
+- `run_final_admissible.py`: candidate filtering and coherent
   re-selection at 1,000, 500, and 350 m start-gap tolerances.
-- `run_top15_baseline.py`: first admissible route analogue among the original
+- `run_top15_baseline.py`: first admissible route analogue among the
   similarity-ranked top 15.
 
 ## Analysis and validation
