@@ -61,7 +61,8 @@ Run the unit and validation-regression tests from the repository root:
 
 The tests cover the frozen article configuration, candidate-admissibility
 rules, GeoLife archive identity, top-15 fallback order, complete
-case--arm--method matrices, and rejection of non-finite geometry diagnostics.
+case--arm--method matrices, hidden-suffix replacement, and rejection of
+non-finite geometry diagnostics.
 
 ## Download and Prepare GeoLife
 
@@ -149,6 +150,7 @@ scripts/forecasting.py       Train-only candidate construction and evaluation
 scripts/geometry_guard.py    Candidate admissibility and re-selection
 scripts/run_final_admissible.py
 scripts/run_top15_baseline.py
+scripts/leakage_audit.py     Train-only provenance and hidden-suffix invariance
 scripts/analyse_*.py         Aggregate tables, confidence, and bootstrap
 scripts/run_full_pipeline.sh End-to-end reproduction
 results/reference/           Coordinate-free article aggregates
@@ -161,7 +163,7 @@ separate dataset terms and is not supplied by this repository.
 ## Versioned Artifact
 
 The results reported in the article correspond to
-[version v1.0.1](https://github.com/VoicePredict/coherent-personal-mobility-forecasting/tree/v1.0.1).
+[version v1.1](https://github.com/VoicePredict/coherent-personal-mobility-forecasting/tree/v1.1).
 Use this tag for publication reproduction; the default branch may receive
 subsequent documentation or validation maintenance.
 

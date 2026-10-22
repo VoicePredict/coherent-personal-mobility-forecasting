@@ -15,6 +15,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import run_final_admissible as final  # noqa: E402
 import run_top15_baseline as top15  # noqa: E402
+import forecasting  # noqa: E402
+import leakage_audit  # noqa: E402
 import validate_final as final_validator  # noqa: E402
 import validate_top15 as top15_validator  # noqa: E402
 import verify_geolife_archive as geolife  # noqa: E402
@@ -172,6 +174,40 @@ class PublicationPipelineTests(unittest.TestCase):
         rows.loc[0, "selected_endpoint_discrepancy_m"] = np.nan
         with self.assertRaises(AssertionError):
             top15_validator.validate_geometry(rows)
+
+    def test_hidden_suffix_replacement_preserves_observed_prefix(self) -> None:
+        values = np.arange(6, dtype=float)
+        trip = forecasting.Trip(
+            dataset="test",
+            driver_id=1,
+            driver_name="user1",
+            trip_id=7,
+            lat=values + 10.0,
+            lon=values + 20.0,
+            x=values + 30.0,
+            y=values + 40.0,
+            t_s=values * 60.0,
+            start_time=pd.Timestamp("2026-01-01T00:00:00"),
+        )
+        altered = leakage_audit.replace_hidden_suffix(trip, prefix_idx=3)
+        for name in ("lat", "lon", "x", "y", "t_s"):
+            original_values = getattr(trip, name)
+            altered_values = getattr(altered, name)
+            np.testing.assert_array_equal(altered_values[:4], original_values[:4])
+            self.assertFalse(np.array_equal(altered_values[4:], original_values[4:]))
+            np.testing.assert_array_equal(original_values, getattr(trip, name))
+
+    def test_reference_leakage_audit_passes_strict_validation(self) -> None:
+        report = json.loads(
+            (
+                ROOT
+                / "results"
+                / "reference"
+                / "final_admissible"
+                / "leakage_audit.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertEqual(final_validator.validate_leakage_report(report), 210)
 
 
 if __name__ == "__main__":

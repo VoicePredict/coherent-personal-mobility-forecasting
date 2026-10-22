@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "expected_models": 210,
+  "audited_models": 210,
+  "hidden_suffix_replacements": 210,
+  "models_by_dataset": {
+    "geolife_ground": 206,
+    "gta_ground": 4
+  },
+  "failure_counts": {
+    "train_test_disjoint": 0,
+    "chronological_order": 0,
+    "projection_center_train_only": 0,
+    "destination_regions_train_only": 0,
+    "grid_structures_train_only": 0,
+    "candidate_routes_train_only": 0,
+    "hidden_suffix_candidate_set_invariant": 0,
+    "hidden_suffix_selection_invariant": 0
+  }
+}

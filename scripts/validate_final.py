@@ -22,6 +22,16 @@ METHODS = {
     "coherent_abstain",
 }
 EXPECTED_CASES = 8526
+LEAKAGE_CHECKS = {
+    "train_test_disjoint",
+    "chronological_order",
+    "projection_center_train_only",
+    "destination_regions_train_only",
+    "grid_structures_train_only",
+    "candidate_routes_train_only",
+    "hidden_suffix_candidate_set_invariant",
+    "hidden_suffix_selection_invariant",
+}
 
 
 def require(condition: bool, message: object) -> None:
@@ -106,6 +116,21 @@ def validate_geometry(rows: pd.DataFrame) -> dict[str, int]:
     return violations
 
 
+def validate_leakage_report(report: dict[str, object]) -> int:
+    require(report.get("status") == "passed", "Leakage audit did not pass")
+    expected = int(report.get("expected_models", -1))
+    audited = int(report.get("audited_models", -1))
+    replacements = int(report.get("hidden_suffix_replacements", -1))
+    require(expected == 210, f"Unexpected leakage-audit target: {expected}")
+    require(audited == expected, f"Incomplete leakage audit: {audited}/{expected}")
+    require(replacements == expected, f"Incomplete suffix replacements: {replacements}")
+    failures = report.get("failure_counts")
+    require(isinstance(failures, dict), "Missing leakage failure counts")
+    require(set(failures) == LEAKAGE_CHECKS, "Unexpected leakage check set")
+    require(not any(int(value) for value in failures.values()), failures)
+    return audited
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--predictions", type=Path, required=True)
@@ -128,11 +153,16 @@ def main() -> int:
         "leave_development_users_out_metrics.csv",
         "leave_development_users_out_bootstrap.csv",
         "temporal_sensitivity_metrics.csv",
+        "leakage_audit.json",
         "risk_coverage_ead.pdf",
         "summary.json",
     ]
     for name in required:
         require((args.public_dir / name).is_file(), f"Missing public result: {name}")
+    leakage_report = json.loads(
+        (args.public_dir / "leakage_audit.json").read_text(encoding="utf-8")
+    )
+    audited_models = validate_leakage_report(leakage_report)
 
     forbidden = {"lat", "lon", "latitude", "longitude", "x", "y"}
     public_csvs = sorted(args.public_dir.glob("*.csv"))
@@ -145,6 +175,7 @@ def main() -> int:
         "n_cases": int(n_cases),
         "n_rows": int(len(rows)),
         "violations": violations,
+        "leakage_audited_models": audited_models,
         "public_csv_count": len(public_csvs),
     }
     args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
