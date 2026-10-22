@@ -123,19 +123,21 @@ results/reference/ tracked coordinate-free article results
 
 Do not publish or commit `data/private/` or `outputs/private/`.
 
-## Computational Requirements
+## Reference Environment and Measured Resource Use
 
 The reported runs used Python 3.10.12 on Linux with an Intel Core i5-8259U
-processor (4 physical cores, 8 hardware threads) and 16 GiB of RAM. No GPU is
-required. The computationally intensive stages were effectively
-single-threaded.
+processor (4 physical cores, 8 hardware threads) and 16 GiB of RAM. No GPU was
+used. The computationally intensive stages were effectively single-threaded.
 
-On that system, the stages in `run_full_pipeline.sh` required approximately
-50 min in total when starting from an already extracted GeoLife release; data
-download, archive extraction, and environment installation are not included.
-The measured peak resident memory for the epsilon-500 forecasting and final
-selection stages was approximately 8.5 GiB. Runtime depends on processor and
-storage performance; at least 12 GiB of available RAM is recommended.
+In this reference environment, one measured execution of the stages in
+`run_full_pipeline.sh` required approximately 50 min when starting from an
+already extracted GeoLife release; data download, archive extraction, and
+environment installation were not included. This observation is reported only
+to describe the reference run and is not an expected runtime on other
+hardware. The observed peak resident memory was approximately 8.5 GiB during
+the epsilon-500 forecasting and final-selection stages. Memory use can vary
+with the operating system, dependency versions, and input representation, so
+this value is not presented as a fixed requirement or upper bound.
 
 ## Principal Reference Results
 
