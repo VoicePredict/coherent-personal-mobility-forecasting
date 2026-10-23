@@ -17,7 +17,9 @@ The artifact reproduces the 8,526-case evaluation reported in the article:
 - random-seed-13 and chronological 75/25 per-individual splits;
 - a top-15 admissibility-matched route-retrieval baseline;
 - paired 10,000-draw user-clustered bootstrap intervals;
-- start-gap sensitivities at 1,000, 500, and 350 m.
+- start-gap sensitivities at 1,000, 500, and 350 m;
+- ablation, emission-overlap, candidate-family, and temporal-availability
+  diagnostics.
 
 ## GeoLife Is Not Redistributed
 
@@ -111,8 +113,9 @@ For an existing archive or extraction, set `GEOLIFE_ARCHIVE` or
 The pipeline performs source preparation, candidate generation, geometric
 admissibility filtering and re-selection, confidence analysis, the
 admissibility-matched top-15 baseline, paired user-clustered bootstrap,
-robustness analysis, and comparison with the tracked aggregate reference
-tables.
+robustness analysis, four-configuration ablation, emission decomposition,
+case-level temporal-availability checks, and comparison with the tracked
+aggregate reference tables.
 
 Outputs are separated by redistribution status:
 
@@ -138,6 +141,14 @@ Over the 103 GeoLife users, the admissibility-only coherent policy exceeded
 top-15 retrieval by 3.17 percentage points in equal-user all-case EAD (95% CI
 [1.30, 4.94]). Case-level and coordinate-bearing outputs are not distributed.
 
+In the fixed ablation, removing grid candidates reduced equal-user GeoLife
+coverage by 7.39 percentage points (95% CI [5.89, 9.12]) and reduced all four
+all-case outcomes. The soft coherence term and the reported score weights were
+not uniformly superior across outcomes; the article treats them as a fixed
+multi-output trade-off rather than an optimized vector. The temporal audit
+found no later-ending training record in any of the 4,233 chronological
+GeoLife cases.
+
 ## Repository Layout
 
 ```text
@@ -150,6 +161,7 @@ scripts/forecasting.py       Train-only candidate construction and evaluation
 scripts/geometry_guard.py    Candidate admissibility and re-selection
 scripts/run_final_admissible.py
 scripts/run_top15_baseline.py
+scripts/run_submission_diagnostics.py
 scripts/leakage_audit.py     Train-only provenance and hidden-suffix invariance
 scripts/analyse_*.py         Aggregate tables, confidence, and bootstrap
 scripts/run_full_pipeline.sh End-to-end reproduction
@@ -163,7 +175,7 @@ separate dataset terms and is not supplied by this repository.
 ## Versioned Artifact
 
 The results reported in the article correspond to
-[version v1.1](https://github.com/VoicePredict/coherent-personal-mobility-forecasting/tree/v1.1).
+[version v1.2](https://github.com/VoicePredict/coherent-personal-mobility-forecasting/tree/v1.2).
 Use this tag for publication reproduction; the default branch may receive
 subsequent documentation or validation maintenance.
 

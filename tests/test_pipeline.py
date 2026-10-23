@@ -18,6 +18,7 @@ import run_top15_baseline as top15  # noqa: E402
 import forecasting  # noqa: E402
 import leakage_audit  # noqa: E402
 import validate_final as final_validator  # noqa: E402
+import validate_submission_diagnostics as diagnostic_validator  # noqa: E402
 import validate_top15 as top15_validator  # noqa: E402
 import verify_geolife_archive as geolife  # noqa: E402
 
@@ -76,6 +77,30 @@ def top15_validation_rows(cases: int = 2) -> pd.DataFrame:
                         "selected_analogue_rank": 1.0,
                     }
                 )
+    return pd.DataFrame(records)
+
+
+def diagnostic_validation_rows(cases: int = 2) -> pd.DataFrame:
+    records: list[dict[str, object]] = []
+    for trip_id in range(1, cases + 1):
+        for variant in diagnostic_validator.VARIANTS:
+            records.append(
+                {
+                    "dataset": "geolife_ground",
+                    "driver_id": 1,
+                    "split_label": "random_seed13",
+                    "trip_id": trip_id,
+                    "variant": variant,
+                    "emitted": 1,
+                    "product_success": 1,
+                    "dest_within_1000m": 1,
+                    "la_within_1000m": 1,
+                    "destination_error_m": 100.0,
+                    "lookahead_error_m": 100.0,
+                    "route_endpoint_to_destination_m": 0.0,
+                    "route_step_accuracy": 0.5,
+                }
+            )
     return pd.DataFrame(records)
 
 
@@ -174,6 +199,28 @@ class PublicationPipelineTests(unittest.TestCase):
         rows.loc[0, "selected_endpoint_discrepancy_m"] = np.nan
         with self.assertRaises(AssertionError):
             top15_validator.validate_geometry(rows)
+
+    def test_diagnostic_validator_accepts_complete_finite_matrix(self) -> None:
+        rows = diagnostic_validation_rows()
+        self.assertEqual(
+            diagnostic_validator.validate_case_matrix(rows, expected_cases=2), 2
+        )
+        diagnostic_validator.validate_finite_values(rows)
+
+    def test_diagnostic_validator_rejects_duplicate_or_missing_variant(self) -> None:
+        rows = diagnostic_validation_rows()
+        case = rows["trip_id"].eq(1)
+        source = rows.index[case & rows["variant"].eq("full")][0]
+        target = rows.index[case & rows["variant"].eq("no_grid")][0]
+        rows.loc[target] = rows.loc[source]
+        with self.assertRaises(AssertionError):
+            diagnostic_validator.validate_case_matrix(rows, expected_cases=2)
+
+    def test_diagnostic_validator_rejects_nonfinite_emitted_geometry(self) -> None:
+        rows = diagnostic_validation_rows()
+        rows.loc[0, "route_step_accuracy"] = np.nan
+        with self.assertRaises(AssertionError):
+            diagnostic_validator.validate_finite_values(rows)
 
     def test_hidden_suffix_replacement_preserves_observed_prefix(self) -> None:
         values = np.arange(6, dtype=float)

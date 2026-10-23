@@ -1,0 +1,16 @@
+{
+  "status": "completed",
+  "n_cases": 8526,
+  "variants": [
+    "full",
+    "no_grid",
+    "no_soft_coherence",
+    "equal_weights",
+    "top15_retrieval"
+  ],
+  "bootstrap_unit": "individual",
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 20261020,
+  "selection_uses_test_outcomes": false,
+  "chronological_history_rule": "training trip end time must not exceed the observed-prefix prediction time"
+}

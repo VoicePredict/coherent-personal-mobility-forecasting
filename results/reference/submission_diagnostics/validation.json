@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "n_cases": 8526,
+  "n_rows": 42630,
+  "variants": [
+    "equal_weights",
+    "full",
+    "no_grid",
+    "no_soft_coherence",
+    "top15_retrieval"
+  ],
+  "failures": []
+}

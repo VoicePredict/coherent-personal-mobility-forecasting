@@ -1,0 +1,10 @@
+dataset,selected_family,n,pct_within_dataset
+geolife_ground,abstain,1332,15.733522324592487
+geolife_ground,destination_cluster,419,4.949208599102292
+geolife_ground,destination_cluster_topk,59,0.6969052681313489
+geolife_ground,destination_prior,21,0.24805102763997164
+geolife_ground,grid_transition,2965,35.02244271202457
+geolife_ground,route_analogue,3670,43.34987006850933
+gta_ground,destination_cluster,4,6.666666666666667
+gta_ground,grid_transition,37,61.666666666666664
+gta_ground,route_analogue,19,31.666666666666668

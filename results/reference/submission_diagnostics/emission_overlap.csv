@@ -1,0 +1,6 @@
+dataset,emission_group,n,pct_within_dataset
+geolife_ground,both_abstain,1274,15.04842901015828
+geolife_ground,both_emit,6808,80.41578077013938
+geolife_ground,full_only,326,3.8506969052681312
+geolife_ground,retrieval_only,58,0.6850933144342074
+gta_ground,both_emit,60,100.0
