@@ -14,10 +14,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import run_final_admissible as final  # noqa: E402
+import run_journal_review_controls as journal_controls  # noqa: E402
 import run_top15_baseline as top15  # noqa: E402
 import forecasting  # noqa: E402
 import leakage_audit  # noqa: E402
 import validate_final as final_validator  # noqa: E402
+import validate_journal_review_controls as journal_validator  # noqa: E402
 import validate_submission_diagnostics as diagnostic_validator  # noqa: E402
 import validate_top15 as top15_validator  # noqa: E402
 import verify_geolife_archive as geolife  # noqa: E402
@@ -165,6 +167,30 @@ class PublicationPipelineTests(unittest.TestCase):
         self.assertIs(selected, candidates[1])
         self.assertEqual(rank, 2)
         self.assertEqual(count, 2)
+
+    def test_fixed_family_order_uses_same_pool_without_score_j(self) -> None:
+        region = SimpleNamespace(
+            family="destination_cluster", route_score=0.9, dest_score=0.9
+        )
+        grid = SimpleNamespace(
+            family="grid_transition", route_score=0.8, dest_score=0.8
+        )
+        analogue = SimpleNamespace(
+            family="route_analogue", route_score=0.2, dest_score=0.1
+        )
+        self.assertIs(
+            journal_controls.select_family_priority([region, grid, analogue]),
+            analogue,
+        )
+        self.assertIs(
+            journal_controls.select_family_priority([region, grid]),
+            grid,
+        )
+
+    def test_journal_validator_rejects_nonfinite_values(self) -> None:
+        frame = pd.DataFrame({"value": [1.0, np.nan]})
+        with self.assertRaises(ValueError):
+            journal_validator.require_finite(frame, ["value"], "test")
 
     def test_pinned_archive_identity(self) -> None:
         self.assertEqual(geolife.EXPECTED_PLT_FILES, 18670)

@@ -19,7 +19,9 @@ The artifact reproduces the 8,526-case evaluation reported in the article:
 - paired 10,000-draw user-clustered bootstrap intervals;
 - start-gap sensitivities at 1,000, 500, and 350 m;
 - ablation, emission-overlap, candidate-family, and temporal-availability
-  diagnostics.
+  diagnostics;
+- a same-candidate-pool fixed-family-order control and an observed-target
+  short-horizon analysis.
 
 ## GeoLife Is Not Redistributed
 
@@ -115,7 +117,8 @@ admissibility filtering and re-selection, confidence analysis, the
 admissibility-matched top-15 baseline, paired user-clustered bootstrap,
 robustness analysis, four-configuration ablation, emission decomposition,
 case-level temporal-availability checks, and comparison with the tracked
-aggregate reference tables.
+aggregate reference tables. It also runs the same-pool selection control and
+recomputes short-horizon accuracy where the target lies inside the recording.
 
 Outputs are separated by redistribution status:
 
@@ -135,11 +138,20 @@ Under the primary 1-km route-start tolerance:
 |---|---:|---:|---:|---:|---:|---:|
 | Coherent, admissibility only | 84.38% | 60.30% | 71.46% | 73.76% | 79.15% | 62.64% |
 | Coherent, `q >= 0.48` | 81.48% | 59.61% | 73.15% | 75.47% | 80.77% | 64.23% |
+| Fixed family order, same candidate pool | 84.38% | 57.94% | 68.67% | 71.00% | 78.23% | 59.94% |
 | Route retrieval, first admissible of top 15 | 81.23% | 56.77% | 69.88% | 72.26% | 79.45% | 60.75% |
 
 Over the 103 GeoLife users, the admissibility-only coherent policy exceeded
 top-15 retrieval by 3.17 percentage points in equal-user all-case EAD (95% CI
 [1.30, 4.94]). Case-level and coordinate-bearing outputs are not distributed.
+
+Against the fixed-family-order control with identical admissible candidates,
+the coherent score improved equal-user destination accuracy by 1.71 points
+(95% CI [0.68, 2.76]) and route score by 2.76 points ([1.89, 3.63]). Its EAD
+and short-horizon differences were not statistically resolved. The
+chronological GeoLife comparison with top-15 retrieval and the 6,692-case
+observed-target short-horizon subset are tracked under
+`results/reference/journal_review_controls/`.
 
 In the fixed ablation, removing grid candidates reduced equal-user GeoLife
 coverage by 7.39 percentage points (95% CI [5.89, 9.12]) and reduced all four
@@ -162,6 +174,7 @@ scripts/geometry_guard.py    Candidate admissibility and re-selection
 scripts/run_final_admissible.py
 scripts/run_top15_baseline.py
 scripts/run_submission_diagnostics.py
+scripts/run_journal_review_controls.py
 scripts/leakage_audit.py     Train-only provenance and hidden-suffix invariance
 scripts/analyse_*.py         Aggregate tables, confidence, and bootstrap
 scripts/run_full_pipeline.sh End-to-end reproduction
@@ -175,7 +188,7 @@ separate dataset terms and is not supplied by this repository.
 ## Versioned Artifact
 
 The results reported in the article correspond to
-[version v1.2](https://github.com/VoicePredict/coherent-personal-mobility-forecasting/tree/v1.2).
+[version v1.3](https://github.com/VoicePredict/coherent-personal-mobility-forecasting/tree/v1.3).
 Use this tag for publication reproduction; the default branch may receive
 subsequent documentation or validation maintenance.
 

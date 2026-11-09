@@ -14,6 +14,9 @@ article and by `scripts/validate_public_results.py`.
   ablation, coherent--retrieval emission decomposition, common-emission
   metrics, candidate-family frequencies, temporal-availability audit, target
   endpoint use, and evaluation-region radii.
+- `reference/journal_review_controls/` contains the same-pool fixed-family
+  selector, the paired chronological comparison with top-15 retrieval, and
+  short-horizon results restricted to targets observed inside the recording.
 
 No tracked file contains latitude, longitude, projected coordinates, route
 geometry, or per-case GeoLife predictions. Fresh coordinate-bearing results

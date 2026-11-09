@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "cases": 8526,
+  "prediction_rows": 25578,
+  "variants": [
+    "fixed_family_order",
+    "full",
+    "top15_retrieval"
+  ],
+  "public_files": [
+    "paired_equal_user_bootstrap.csv",
+    "policy_metrics.csv",
+    "short_horizon_observed_target.csv",
+    "summary.json"
+  ]
+}

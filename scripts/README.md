@@ -24,6 +24,9 @@
 - `run_submission_diagnostics.py`: fixed ablation variants, top-15 emission
   overlap, candidate-family composition, and case-level temporal-availability
   checks for chronological evaluation.
+- `run_journal_review_controls.py`: same admissible candidate pool with a
+  fixed analogue--grid--region family order, plus the chronological retrieval
+  comparator.
 
 ## Analysis and validation
 
@@ -32,9 +35,12 @@
   bootstrap.
 - `analyse_submission_diagnostics.py`: equal-user ablation, paired bootstrap,
   common-emission, target-endpoint, and evaluation-region aggregates.
+- `analyse_journal_review_controls.py`: same-pool paired contrasts and
+  short-horizon results restricted to targets observed inside the recording.
 - `robustness_audit.py`: development-overlap and timestamp sensitivity data.
 - `validate_final.py`, `validate_top15.py`, and
-  `validate_submission_diagnostics.py`: complete case matrices, cohort and
+  `validate_submission_diagnostics.py`, and
+  `validate_journal_review_controls.py`: complete case matrices, cohort and
   geometric invariants, finite values, and expected public outputs.
 - `validate_public_results.py`: comparison with tracked coordinate-free
   reference tables.

@@ -1,0 +1,14 @@
+{
+  "candidate_pool": "identical eligible candidates for full and fixed_family_order",
+  "fixed_family_order": [
+    "route_analogue by decreasing route evidence",
+    "grid_transition by decreasing grid destination score",
+    "destination region by decreasing destination score"
+  ],
+  "geolife_users": 103,
+  "geolife_cases": 8466,
+  "gta_cases": 60,
+  "bootstrap_unit": "GeoLife user",
+  "bootstrap_draws": 10000,
+  "bootstrap_seed": 20261020
+}
