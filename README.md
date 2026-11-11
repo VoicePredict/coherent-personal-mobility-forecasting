@@ -15,12 +15,13 @@ The artifact reproduces the 8,526-case evaluation reported in the article:
 - 60 cases from two GTA-V histories;
 - DBSCAN destination neighbourhood `eps = 500 m`;
 - random-seed-13 and chronological 75/25 per-individual splits;
-- a top-15 admissibility-matched route-retrieval baseline;
+- an internally defined, admissibility-matched top-15 historical-retrieval
+  control;
 - paired 10,000-draw user-clustered bootstrap intervals;
 - start-gap sensitivities at 1,000, 500, and 350 m;
 - ablation, emission-overlap, candidate-family, and temporal-availability
   diagnostics;
-- a same-candidate-pool fixed-family-order control and an observed-target
+- a candidate-pool-matched fixed-family-order control and an observed-target
   short-horizon analysis.
 
 ## GeoLife Is Not Redistributed
@@ -117,8 +118,9 @@ admissibility filtering and re-selection, confidence analysis, the
 admissibility-matched top-15 baseline, paired user-clustered bootstrap,
 robustness analysis, four-configuration ablation, emission decomposition,
 case-level temporal-availability checks, and comparison with the tracked
-aggregate reference tables. It also runs the same-pool selection control and
-recomputes short-horizon accuracy where the target lies inside the recording.
+aggregate reference tables. It also runs the candidate-pool-matched selection
+control and recomputes short-horizon accuracy where the target lies inside the
+recording.
 
 Outputs are separated by redistribution status:
 
@@ -139,7 +141,7 @@ Under the primary 1-km route-start tolerance:
 | Coherent, admissibility only | 84.38% | 60.30% | 71.46% | 73.76% | 79.15% | 62.64% |
 | Coherent, `q >= 0.48` | 81.48% | 59.61% | 73.15% | 75.47% | 80.77% | 64.23% |
 | Fixed family order, same candidate pool | 84.38% | 57.94% | 68.67% | 71.00% | 78.23% | 59.94% |
-| Route retrieval, first admissible of top 15 | 81.23% | 56.77% | 69.88% | 72.26% | 79.45% | 60.75% |
+| Historical retrieval, first admissible of top 15 | 81.23% | 56.77% | 69.88% | 72.26% | 79.45% | 60.75% |
 
 Over the 103 GeoLife users, the admissibility-only coherent policy exceeded
 top-15 retrieval by 3.17 percentage points in equal-user all-case EAD (95% CI
@@ -156,8 +158,8 @@ observed-target short-horizon subset are tracked under
 In the fixed ablation, removing grid candidates reduced equal-user GeoLife
 coverage by 7.39 percentage points (95% CI [5.89, 9.12]) and reduced all four
 all-case outcomes. The soft coherence term and the reported score weights were
-not uniformly superior across outcomes; the article treats them as a fixed
-multi-output trade-off rather than an optimized vector. The temporal audit
+not uniformly superior across outcomes; the article treats them as fixed
+design values rather than an optimized vector. The temporal audit
 found no later-ending training record in any of the 4,233 chronological
 GeoLife cases.
 
@@ -188,7 +190,7 @@ separate dataset terms and is not supplied by this repository.
 ## Versioned Artifact
 
 The results reported in the article correspond to
-[version v1.3](https://github.com/VoicePredict/coherent-personal-mobility-forecasting/tree/v1.3).
+[version v1.4](https://github.com/VoicePredict/coherent-personal-mobility-forecasting/tree/v1.4).
 Use this tag for publication reproduction; the default branch may receive
 subsequent documentation or validation maintenance.
 

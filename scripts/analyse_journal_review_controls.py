@@ -131,6 +131,12 @@ def main() -> int:
     geolife = predictions.loc[predictions["dataset"].eq("geolife_ground")].copy()
     gta = predictions.loc[predictions["dataset"].eq("gta_ground")].copy()
 
+    selective = geolife.loc[geolife["variant"].eq("full")].copy()
+    selective["variant"] = "full_q048"
+    selective["emitted"] = (
+        selective["emitted"].eq(1)
+        & pd.to_numeric(selective["candidate_confidence"], errors="raise").ge(0.48)
+    ).astype(int)
     metrics: list[dict[str, object]] = []
     metrics.extend(metric_records(geolife, "geolife_all_splits"))
     metrics.extend(metric_records(gta, "gta_all_splits"))
@@ -167,6 +173,7 @@ def main() -> int:
         args.output_dir / "paired_equal_user_bootstrap.csv", index=False
     )
 
+    geolife = pd.concat([geolife, selective], ignore_index=True)
     audit = pd.read_csv(args.geolife_temporal_audit, low_memory=False)
     audit_keys = ["driver_id", "trip_id"]
     audit = audit[
@@ -190,9 +197,15 @@ def main() -> int:
     }
     for scope, mask in scopes.items():
         subset = geolife.loc[
-            mask & geolife["variant"].isin(["full", "top15_retrieval"])
+            mask
+            & geolife["variant"].isin(
+                ["full_q048", "full", "top15_retrieval"]
+            )
         ]
-        temporal_records.extend(metric_records(subset, scope))
+        for variant in ["full_q048", "full", "top15_retrieval"]:
+            temporal_records.extend(
+                metric_records(subset.loc[subset["variant"].eq(variant)], scope)
+            )
     gta_inside = gta.loc[
         gta["horizon_beyond_recording_end"].eq(0)
         & gta["variant"].isin(["full", "top15_retrieval"])

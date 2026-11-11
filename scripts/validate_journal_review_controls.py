@@ -77,7 +77,16 @@ def main() -> int:
         [c for c in temporal if c.endswith("_pct")],
         "short-horizon metrics",
     )
-
+    expected_temporal_variants = {"full_q048", "full", "top15_retrieval"}
+    for scope, expected_cases in {
+        "geolife_target_strictly_before_endpoint": 6855,
+        "geolife_target_before_endpoint_and_bracket_le_1h": 6692,
+    }.items():
+        subset = temporal.loc[temporal["scope"].eq(scope)]
+        if set(subset["variant"]) != expected_temporal_variants:
+            raise ValueError(f"Incomplete observed-target variants for {scope}")
+        if not subset["n_cases"].eq(expected_cases).all():
+            raise ValueError(f"Unexpected observed-target case count for {scope}")
     result = {
         "passed": True,
         "cases": int(len(case_counts)),

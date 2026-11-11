@@ -73,7 +73,7 @@ mkdir -p "$PUBLIC/final_admissible"
   --public-dir "$PUBLIC/final_admissible" \
   --output "$PUBLIC/final_admissible/validation.json"
 
-echo "[7/14] Evaluate the admissibility-matched top-15 retrieval baseline"
+echo "[7/14] Evaluate the admissibility-matched top-15 retrieval control"
 mkdir -p "$PRIVATE/top15"
 "$PYTHON" scripts/run_top15_baseline.py \
   --config "$PRIVATE/base_forecast/effective_config.json" \
@@ -82,7 +82,7 @@ mkdir -p "$PRIVATE/top15"
   --output "$PRIVATE/top15/top15_analogue_predictions.csv" \
   --top-k 15
 
-echo "[8/14] Aggregate the strengthened-baseline comparisons"
+echo "[8/14] Aggregate the historical-retrieval comparisons"
 mkdir -p "$PUBLIC/top15_baseline"
 "$PYTHON" scripts/analyse_top15.py \
   --new-predictions "$PRIVATE/top15/top15_analogue_predictions.csv" \
@@ -120,7 +120,7 @@ echo "[10/14] Aggregate and validate the submission diagnostics"
   --public-dir "$PUBLIC/submission_diagnostics" \
   --output "$PUBLIC/submission_diagnostics/validation.json"
 
-echo "[11/14] Run same-pool and observed-target review controls"
+echo "[11/14] Run candidate-pool-matched and observed-target controls"
 mkdir -p "$PRIVATE/journal_review_controls" "$PUBLIC/journal_review_controls"
 "$PYTHON" scripts/run_journal_review_controls.py \
   --config "$PRIVATE/base_forecast/effective_config.json" \
@@ -137,6 +137,7 @@ echo "[12/14] Aggregate and validate the review controls"
   --output-dir "$PUBLIC/journal_review_controls" \
   --bootstrap-draws 10000 \
   --seed 20261020
+
 "$PYTHON" scripts/validate_journal_review_controls.py \
   --predictions "$PRIVATE/journal_review_controls/control_predictions.csv" \
   --public-dir "$PUBLIC/journal_review_controls" \
